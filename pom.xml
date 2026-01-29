@@ -4,7 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>tr.mbt</groupId>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>tr.mbt.coupon</groupId>
     <artifactId>coupon-app</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -12,12 +20,32 @@
         <module>coupon-writer-service</module>
         <module>coupon-processing-service</module>
         <module>coupon-query-service</module>
+        <module>core/service-common</module>
     </modules>
 
 
     <properties>
+        <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
+
+
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
