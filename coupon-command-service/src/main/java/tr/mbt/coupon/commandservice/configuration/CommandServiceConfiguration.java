@@ -9,7 +9,7 @@ import tr.mbt.coupon.coupondata.entity.RecordEntity;
 import tr.mbt.coupon.commandservice.repository.CouponRepository;
 import tr.mbt.coupon.commandservice.redis.RecordDocumentRepository;
 import tr.mbt.coupon.coupondata.entity.CouponEntity;
-import tr.mbt.coupon.uploadedfile.entity.UploadedFileEntity;
+import tr.mbt.coupon.coupondata.entity.UploadedFileEntity;
 import tr.mbt.coupon.uploadedfile.repository.UploadedFileRepository;
 import tr.mbt.minioclient.configuration.EnableMinioConfiguration;
 

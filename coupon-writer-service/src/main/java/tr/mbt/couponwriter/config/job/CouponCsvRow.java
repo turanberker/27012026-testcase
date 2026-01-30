@@ -15,5 +15,5 @@ public class CouponCsvRow {
     private String discountType;
     private BigDecimal discountAmount;
     private LocalDate expiryDate;
-    private Integer maxUsages;
+    private Long maxUsages;
 }

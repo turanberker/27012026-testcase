@@ -1,4 +1,4 @@
-package tr.mbt.coupon.uploadedfile.data;
+package tr.mbt.coupon.coupondata.data;
 
 public enum UploadedFileStatus {
 

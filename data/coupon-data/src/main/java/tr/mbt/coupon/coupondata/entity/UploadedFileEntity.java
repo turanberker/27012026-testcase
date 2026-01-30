@@ -1,7 +1,7 @@
-package tr.mbt.coupon.uploadedfile.entity;
+package tr.mbt.coupon.coupondata.entity;
 
 import jakarta.persistence.*;
-import tr.mbt.coupon.uploadedfile.data.UploadedFileStatus;
+import tr.mbt.coupon.coupondata.data.UploadedFileStatus;
 
 @Entity
 @Table( name = "Uploaded_file")

@@ -13,18 +13,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
-import tr.mbt.coupon.uploadedfile.configuration.EnableUploadedFileDataConfiguration;
+import tr.mbt.coupon.coupondata.entity.CouponEntity;
 import tr.mbt.couponwriter.config.job.CouponCsvRow;
 import tr.mbt.couponwriter.config.job.CouponItemProcessor;
 import tr.mbt.couponwriter.config.job.CouponJobListener;
 import tr.mbt.couponwriter.config.job.CouponJpaWriter;
-import tr.mbt.coupon.coupondata.entity.CouponEntity;
 import tr.mbt.minioclient.configuration.EnableMinioConfiguration;
 
 @EnableScheduling
 @EnableMinioConfiguration
 @EnableBatchProcessing
-@EnableUploadedFileDataConfiguration
 @EntityScan(basePackageClasses = CouponEntity.class)
 @Configuration
 public class CouponWriterConfigurations {

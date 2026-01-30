@@ -7,9 +7,9 @@ import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import tr.mbt.coupon.uploadedfile.data.UploadedFileStatus;
-import tr.mbt.coupon.uploadedfile.entity.UploadedFileEntity;
-import tr.mbt.coupon.uploadedfile.repository.UploadedFileRepository;
+import tr.mbt.coupon.coupondata.data.UploadedFileStatus;
+import tr.mbt.coupon.coupondata.entity.UploadedFileEntity;
+import tr.mbt.couponwriter.repository.UploadedFileRepository;
 
 import java.util.List;
 

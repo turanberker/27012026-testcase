@@ -4,7 +4,6 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.core.io.Resource;
-import tr.mbt.couponwriter.data.CouponType;
 
 import java.time.LocalDate;
 
@@ -35,7 +34,7 @@ public class CouponCsvReader {
             row.setDiscountType(fieldSet.readString("discountType"));
             row.setDiscountAmount(fieldSet.readBigDecimal("discountAmount"));
             row.setExpiryDate(LocalDate.parse(fieldSet.readString("expiryDate")));
-            row.setMaxUsages(fieldSet.readInt("maxUsages"));
+            row.setMaxUsages(fieldSet.readLong("maxUsages"));
             return row;
         });
 

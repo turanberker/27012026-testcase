@@ -22,7 +22,7 @@
         <module>coupon-query-service</module>
         <module>core/service-common</module>
         <module>core/minioclient</module>
-        <module>data/uploaded-file-data</module>
+
         <module>data/coupon-data</module>
         <module>coupon-consumer</module>
     </modules>
@@ -64,11 +64,7 @@
                 <artifactId>minioclient</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>tr.mbt.coupon</groupId>
-                <artifactId>uploaded-file-data</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>tr.mbt.coupon</groupId>
                 <artifactId>coupon-data</artifactId>

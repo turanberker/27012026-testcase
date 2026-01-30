@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import tr.mbt.coupon.commandservice.exception.ProcessingServiceException;
-import tr.mbt.coupon.uploadedfile.entity.UploadedFileEntity;
+import tr.mbt.coupon.coupondata.entity.UploadedFileEntity;
 import tr.mbt.coupon.uploadedfile.repository.UploadedFileRepository;
 import tr.mbt.minioclient.FileStorageClient;
 

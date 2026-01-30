@@ -65,10 +65,7 @@
             <artifactId>coupon-data</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>tr.mbt.coupon</groupId>
-            <artifactId>uploaded-file-data</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>tr.mbt.coupon</groupId>
             <artifactId>minioclient</artifactId>
