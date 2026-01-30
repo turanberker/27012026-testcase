@@ -1,15 +1,19 @@
-package tr.mbt.coupon.commandservice.entity;
+package tr.mbt.coupon.coupondata.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import tr.mbt.coupon.coupondata.entity.CouponEntity;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "RECORD")
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 public class RecordEntity {
 
     @Id
@@ -29,13 +33,17 @@ CREATE SEQUENCE IF NOT EXISTS coupon.RECORDT_seq;
     private Long id;
 
     @NotNull
-    @Column(name = "COUPON_CODE",updatable = false)
+    @Column(name = "COUPON_CODE", updatable = false)
     private String couponCode;
 
     //FIXME Liquibase den sonra sil
     @ManyToOne(targetEntity = CouponEntity.class)
-    @JoinColumn(name = "COUPON_CODE", updatable = false,insertable = false)
+    @JoinColumn(name = "COUPON_CODE", updatable = false, insertable = false)
     private CouponEntity coupon;
 
     private String userId;
+
+    @CreatedDate
+    @Column(name = "CREATED_DATE")
+    private LocalDateTime createdDate;
 }

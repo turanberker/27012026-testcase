@@ -1,4 +1,4 @@
-package tr.mbt.coupon.commandservice.entity.redis;
+package tr.mbt.coupon.commandservice.redis;
 
 
 import lombok.AllArgsConstructor;

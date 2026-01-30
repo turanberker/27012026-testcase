@@ -24,6 +24,7 @@
         <module>core/minioclient</module>
         <module>data/uploaded-file-data</module>
         <module>data/coupon-data</module>
+        <module>coupon-consumer</module>
     </modules>
 
 

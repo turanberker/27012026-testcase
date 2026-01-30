@@ -3,10 +3,10 @@ package tr.mbt.coupon.commandservice.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tr.mbt.coupon.commandservice.entity.RecordEntity;
-import tr.mbt.coupon.commandservice.entity.redis.RecordDocument;
+import tr.mbt.coupon.coupondata.entity.RecordEntity;
+import tr.mbt.coupon.commandservice.redis.RecordDocument;
 import tr.mbt.coupon.commandservice.repository.RecordRepository;
-import tr.mbt.coupon.commandservice.repository.redis.RecordDocumentRepository;
+import tr.mbt.coupon.commandservice.redis.RecordDocumentRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -49,16 +49,5 @@ public class RecordServiceImpl implements RecordService {
             fromCache.setTotalUsage(fromCache.getTotalUsage() + 1);
             recordDocumentRepository.save(fromCache);
         }
-    }
-
-    @Override
-    @Transactional
-    public void redeem(String couponCode, String userId) {
-        RecordEntity entity = new RecordEntity();
-        entity.setCouponCode(couponCode);
-        entity.setUserId(userId);
-        recordRepository.save(entity);
-
-
     }
 }

@@ -3,12 +3,14 @@ package tr.mbt.coupon.commandservice.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import tr.mbt.coupon.commandservice.producer.RecordProducer;
 import tr.mbt.coupon.commandservice.repository.CouponRepository;
 import tr.mbt.coupon.coupondata.data.CouponType;
 import tr.mbt.coupon.coupondata.entity.CouponEntity;
-
-import java.time.LocalDate;
+import tr.mbt.coupon.coupondata.events.NewCouponRecordEvent;
 
 @Service
 @RequiredArgsConstructor
@@ -18,14 +20,17 @@ public class CouponRequestServiceImpl implements CouponRequestService {
 
     private final RecordService recordService;
 
+    private final RecordProducer recordProducer;
+
     @Override
+    @Transactional
     public String request(final CouponType requestedType, String userId) {
 
         CouponType type = requestedType == null ? CouponType.STANDARD : requestedType;
         int pageIndex = 0;
-        PageRequest pageRequest = PageRequest.of(pageIndex, 10);
+        PageRequest pageRequest = PageRequest.of(pageIndex, 10, Sort.by(Sort.Direction.ASC, "totalUsedCount"));
         Page<CouponEntity> page =
-                couponRepository.findByCouponTypeAndExpiryDateAfter(type, LocalDate.now(), pageRequest);
+                couponRepository.findAvailableCoupons(type, pageRequest);
 
         CouponEntity selectedCoupon = null;
 
@@ -37,15 +42,18 @@ public class CouponRequestServiceImpl implements CouponRequestService {
                     break;
                 }
             }
-            pageRequest = PageRequest.of(pageIndex++, 10);
-            page = couponRepository.findByCouponTypeAndExpiryDateAfter(type, LocalDate.now(), pageRequest);
+            if (selectedCoupon == null) {
+                pageRequest = PageRequest.of(pageIndex++, 10,Sort.by(Sort.Direction.ASC, "totalUsedCount"));
+                page = couponRepository.findAvailableCoupons(type, pageRequest);
+            }
         }
 
         if (selectedCoupon == null) {
             return null;
         } else {
             recordService.increaseTotalUsage(selectedCoupon.getCode());
-            recordService.redeem(selectedCoupon.getCode(), userId);
+
+            recordProducer.send(new NewCouponRecordEvent(userId, selectedCoupon.getCode()));
             return selectedCoupon.getCode();
         }
     }

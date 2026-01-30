@@ -1,0 +1,44 @@
+spring:
+  main:
+    web-application-type: none
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/coupon}
+    username: ${DB_USERNAME:adminnn}
+    password: ${DB_PASSWORD:adminnn}
+    driver-class-name: org.postgresql.Driver
+
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      max-lifetime: 600000
+      connection-timeout: 30000
+
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: validate   # local: update / create, prod: validate
+    properties:
+      hibernate:
+        default_schema: coupon
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_ADRESS:localhost:29092}
+
+    consumer:
+      group-id: coupon-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+
+    listener:
+      ack-mode: manual

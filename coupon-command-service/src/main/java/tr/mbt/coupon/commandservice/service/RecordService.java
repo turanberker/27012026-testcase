@@ -5,6 +5,4 @@ public interface RecordService {
     Long countByCouponCode(String couponCode);
 
     void increaseTotalUsage(String couponCode);
-
-    void redeem(String couponCode, String userId);
 }
