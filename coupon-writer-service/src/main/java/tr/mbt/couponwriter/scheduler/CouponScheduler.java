@@ -1,0 +1,48 @@
+package tr.mbt.couponwriter.scheduler;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+import tr.mbt.coupon.uploadedfile.data.UploadedFileStatus;
+import tr.mbt.coupon.uploadedfile.entity.UploadedFileEntity;
+import tr.mbt.coupon.uploadedfile.repository.UploadedFileRepository;
+
+import java.util.List;
+
+@Component
+@RequiredArgsConstructor
+public class CouponScheduler {
+
+    private final UploadedFileRepository uploadedFileRepository;
+    private final JobLauncher jobLauncher;
+    private final Job couponImportJob;
+
+    @Scheduled(fixedDelay = 60000)
+    public void runJob() {
+        System.out.println("Coupon writer job running...");
+
+        List<UploadedFileEntity> byStatus = uploadedFileRepository.findByStatus(UploadedFileStatus.NEW);
+
+        byStatus.forEach(this::processFile);
+    }
+
+    private void processFile(UploadedFileEntity uploadedFileEntity) {
+
+     try{
+         JobParameters params = new JobParametersBuilder()
+                 .addString("fileName", uploadedFileEntity.getFileName())
+                 .addLong("run.id", System.currentTimeMillis())
+                 .toJobParameters();
+         jobLauncher.run(couponImportJob, params);
+     }
+     catch (Exception e){
+         e.printStackTrace();
+     }
+
+
+    }
+}

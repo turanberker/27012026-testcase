@@ -19,7 +19,7 @@ public class CouponRestController {
 
     private final FileUploadService fileUploadService;
 
-    @PostMapping(path = "/upload", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @PostMapping(path = "/upload", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<BaseResponse<String>> saveFile(@RequestPart("file") MultipartFile file) {
 
         String uploadedFileName = fileUploadService.upload(file);

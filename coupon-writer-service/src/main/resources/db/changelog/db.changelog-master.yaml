@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/001-create-schema.sql
+  - changeSet:
+      id: spring-batch-tables
+      author: berker
+      changes:
+        - sqlFile:
+            path: org/springframework/batch/core/schema-postgresql.sql
+            relativeToChangelogFile: false

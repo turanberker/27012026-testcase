@@ -19,7 +19,7 @@ public class FileUploadServiceImpl implements FileUploadService {
     private final UploadedFileRepository repository;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public String upload(MultipartFile file) {
 
         boolean exists = repository.existsById(file.getName());
@@ -30,7 +30,7 @@ public class FileUploadServiceImpl implements FileUploadService {
         uploadedFileEntity = repository.save(uploadedFileEntity);
 
         try {
-            fileStorageClient.upload(file.getName(), file.getInputStream(), file.getSize(), file.getName());
+            fileStorageClient.upload(file.getName(), file.getInputStream(), file.getSize(), file.getContentType());
         } catch (IOException e) {
             throw new ProcessingServiceException("File can not uploaded");
         }

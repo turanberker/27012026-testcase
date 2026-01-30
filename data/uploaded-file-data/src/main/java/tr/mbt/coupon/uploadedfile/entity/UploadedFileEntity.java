@@ -1,9 +1,6 @@
 package tr.mbt.coupon.uploadedfile.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import tr.mbt.coupon.uploadedfile.data.UploadedFileStatus;
 
 @Entity
@@ -15,6 +12,7 @@ public class UploadedFileEntity {
     private String fileName;
 
     @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
     private UploadedFileStatus status=UploadedFileStatus.NEW;
 
     public UploadedFileEntity(String fileName) {
