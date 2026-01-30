@@ -18,7 +18,7 @@ import tr.mbt.couponwriter.config.job.CouponCsvRow;
 import tr.mbt.couponwriter.config.job.CouponItemProcessor;
 import tr.mbt.couponwriter.config.job.CouponJobListener;
 import tr.mbt.couponwriter.config.job.CouponJpaWriter;
-import tr.mbt.couponwriter.entity.CouponEntity;
+import tr.mbt.coupon.coupondata.entity.CouponEntity;
 import tr.mbt.minioclient.configuration.EnableMinioConfiguration;
 
 @EnableScheduling

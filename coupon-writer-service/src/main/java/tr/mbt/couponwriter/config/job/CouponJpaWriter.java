@@ -2,7 +2,7 @@ package tr.mbt.couponwriter.config.job;
 
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.item.database.JpaItemWriter;
-import tr.mbt.couponwriter.entity.CouponEntity;
+import tr.mbt.coupon.coupondata.entity.CouponEntity;
 
 public class CouponJpaWriter {
 

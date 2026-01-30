@@ -3,7 +3,7 @@ package tr.mbt.couponwriter.config.job;
 import org.springframework.batch.item.ItemProcessor;
 import tr.mbt.couponwriter.data.CouponType;
 import tr.mbt.couponwriter.data.DiscountType;
-import tr.mbt.couponwriter.entity.CouponEntity;
+import tr.mbt.coupon.coupondata.entity.CouponEntity;
 
 
 public class CouponItemProcessor

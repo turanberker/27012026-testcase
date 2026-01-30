@@ -15,7 +15,7 @@ spring:
 
   jpa:
     open-in-view: false
-    show-sql: false
+    show-sql: true
     hibernate:
       ddl-auto: update   # local: update / create, prod: validate
     properties:
@@ -28,8 +28,24 @@ spring:
   sql:
     init:
       mode: never
-
-
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000   # 10 dakika (ms)
+      cache-null-values: false
+      use-key-prefix: true
+      key-prefix: "coupon::"
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 2
+          max-wait: 2000ms
 
 minio:
   endpoint: ${MINIO_ENDPOINT:http://localhost:9000}

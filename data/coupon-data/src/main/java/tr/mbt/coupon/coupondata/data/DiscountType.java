@@ -1,4 +1,4 @@
-package tr.mbt.couponwriter.data;
+package tr.mbt.coupon.coupondata.data;
 
 public enum DiscountType {
     FLAT,

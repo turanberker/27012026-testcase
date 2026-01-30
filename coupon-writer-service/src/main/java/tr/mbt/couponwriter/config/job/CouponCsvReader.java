@@ -1,12 +1,10 @@
 package tr.mbt.couponwriter.config.job;
 
 import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.core.io.Resource;
 import tr.mbt.couponwriter.data.CouponType;
-import tr.mbt.couponwriter.data.DiscountType;
 
 import java.time.LocalDate;
 
