@@ -18,7 +18,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>coupon-writer-service</module>
-        <module>coupon-processing-service</module>
+        <module>coupon-command-service</module>
         <module>coupon-query-service</module>
         <module>core/service-common</module>
         <module>core/minioclient</module>

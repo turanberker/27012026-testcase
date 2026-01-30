@@ -1,4 +1,4 @@
-package tr.mbt.coupon.processingservice.controller;
+package tr.mbt.coupon.commandservice.controller;
 
 import com.mbt.servicecommon.BaseResponse;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import tr.mbt.coupon.processingservice.service.FileUploadService;
+import tr.mbt.coupon.commandservice.service.FileUploadService;
 
 
 @RestController

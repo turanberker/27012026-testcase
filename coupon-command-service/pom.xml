@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>coupon-processing-service</artifactId>
+    <artifactId>coupon-command-service</artifactId>
 
     <dependencies>
         <dependency>

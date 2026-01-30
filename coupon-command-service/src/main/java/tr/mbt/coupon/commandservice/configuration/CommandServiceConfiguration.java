@@ -1,4 +1,4 @@
-package tr.mbt.coupon.processingservice.configuration;
+package tr.mbt.coupon.commandservice.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import tr.mbt.coupon.uploadedfile.configuration.EnableUploadedFileDataConfiguration;

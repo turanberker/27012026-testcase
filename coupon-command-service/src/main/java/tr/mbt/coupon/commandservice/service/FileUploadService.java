@@ -1,4 +1,4 @@
-package tr.mbt.coupon.processingservice.service;
+package tr.mbt.coupon.commandservice.service;
 
 import jakarta.validation.constraints.NotNull;
 import org.springframework.web.multipart.MultipartFile;

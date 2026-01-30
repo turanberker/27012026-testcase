@@ -1,4 +1,4 @@
-package tr.mbt.coupon.processingservice.exception;
+package tr.mbt.coupon.commandservice.exception;
 
 public class ProcessingServiceException extends RuntimeException{
 
