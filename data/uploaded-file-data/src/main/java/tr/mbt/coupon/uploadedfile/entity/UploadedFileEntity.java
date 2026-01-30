@@ -1,13 +1,13 @@
-package tr.mbt.coupon.processingservice.entity;
+package tr.mbt.coupon.uploadedfile.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import tr.mbt.coupon.processingservice.data.UploadedFileStatus;
+import tr.mbt.coupon.uploadedfile.data.UploadedFileStatus;
 
 @Entity
-@Table(schema = EntityConstants.SCHEMA_NAME, name = "Uploaded_file")
+@Table( name = "Uploaded_file")
 public class UploadedFileEntity {
 
     @Id
