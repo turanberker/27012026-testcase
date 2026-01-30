@@ -20,11 +20,12 @@
         <module>coupon-writer-service</module>
         <module>coupon-command-service</module>
         <module>coupon-query-service</module>
+        <module>coupon-consumer-service</module>
+
         <module>core/service-common</module>
         <module>core/minioclient</module>
-
         <module>data/coupon-data</module>
-        <module>coupon-consumer</module>
+
     </modules>
 
 
