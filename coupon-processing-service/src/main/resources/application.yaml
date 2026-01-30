@@ -1,9 +1,9 @@
 server.port: 8500
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/coupon
-    username: adminnn
-    password: adminnn
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/coupon}
+    username: ${DB_USERNAME:adminnn}
+    password: ${DB_PASSWORD:adminnn}
     driver-class-name: org.postgresql.Driver
 
     hikari:
