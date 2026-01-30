@@ -21,6 +21,7 @@
         <module>coupon-processing-service</module>
         <module>coupon-query-service</module>
         <module>core/service-common</module>
+        <module>core/minioclient</module>
     </modules>
 
 
@@ -48,4 +49,24 @@
         </plugins>
     </build>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>tr.mbt.coupon</groupId>
+                <artifactId>service-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>tr.mbt.coupon</groupId>
+                <artifactId>minioclient</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </repositories>
 </project>
