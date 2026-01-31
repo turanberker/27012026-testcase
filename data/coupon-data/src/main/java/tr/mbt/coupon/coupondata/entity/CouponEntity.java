@@ -41,15 +41,7 @@ public class CouponEntity {
     @Column(name = "TOTAL_USED_COUNT", nullable = false,columnDefinition = "integer default 0")
     private Integer totalUsedCount = 0;
 
-    @Column(name = "AVAILABLE")
-    private Boolean available;
 
-    @PrePersist
-    protected void prePersist() {
-        if (maxUsages > totalUsedCount && expiryDate.isBefore(LocalDate.now())) {
-            available = Boolean.TRUE;
-        } else {
-            available = Boolean.FALSE;
-        }
-    }
+
+
 }
