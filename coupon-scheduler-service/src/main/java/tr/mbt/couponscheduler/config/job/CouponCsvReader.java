@@ -1,10 +1,9 @@
-package tr.mbt.couponwriter.config.job;
+package tr.mbt.couponscheduler.config.job;
 
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.core.io.Resource;
-import tr.mbt.coupon.coupondata.constants.UploadedFileConstants;
 
 import java.time.LocalDate;
 

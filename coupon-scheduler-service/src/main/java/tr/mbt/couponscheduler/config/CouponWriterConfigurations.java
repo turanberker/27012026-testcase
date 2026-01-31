@@ -1,4 +1,4 @@
-package tr.mbt.couponwriter.config;
+package tr.mbt.couponscheduler.config;
 
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.core.Job;
@@ -14,10 +14,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import tr.mbt.coupon.coupondata.entity.CouponEntity;
-import tr.mbt.couponwriter.config.job.CouponCsvRow;
-import tr.mbt.couponwriter.config.job.CouponItemProcessor;
-import tr.mbt.couponwriter.config.job.CouponJobListener;
-import tr.mbt.couponwriter.config.job.CouponJpaWriter;
+import tr.mbt.couponscheduler.config.job.CouponCsvRow;
+import tr.mbt.couponscheduler.config.job.CouponItemProcessor;
+import tr.mbt.couponscheduler.config.job.CouponJobListener;
+import tr.mbt.couponscheduler.config.job.CouponJpaWriter;
 import tr.mbt.minioclient.configuration.EnableMinioConfiguration;
 
 @EnableScheduling

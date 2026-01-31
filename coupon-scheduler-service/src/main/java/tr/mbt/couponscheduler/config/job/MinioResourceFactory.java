@@ -1,4 +1,4 @@
-package tr.mbt.couponwriter.config.job;
+package tr.mbt.couponscheduler.config.job;
 
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;

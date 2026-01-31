@@ -1,4 +1,4 @@
-package tr.mbt.couponwriter.config.job;
+package tr.mbt.couponscheduler.config.job;
 
 import org.springframework.batch.item.ItemProcessor;
 import tr.mbt.coupon.coupondata.data.CouponType;

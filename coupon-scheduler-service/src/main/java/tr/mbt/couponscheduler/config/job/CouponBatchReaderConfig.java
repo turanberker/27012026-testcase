@@ -1,4 +1,4 @@
-package tr.mbt.couponwriter.config.job;
+package tr.mbt.couponscheduler.config.job;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.configuration.annotation.StepScope;

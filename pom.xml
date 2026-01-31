@@ -17,7 +17,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>coupon-writer-service</module>
+        <module>coupon-scheduler-service</module>
         <module>coupon-command-service</module>
         <module>coupon-query-service</module>
         <module>coupon-consumer-service</module>

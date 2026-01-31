@@ -1,9 +1,9 @@
-package tr.mbt.couponwriter.scheduler;
+package tr.mbt.couponscheduler.scheduler;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import tr.mbt.couponwriter.repository.RecordRepositoy;
+import tr.mbt.couponscheduler.repository.RecordRepositoy;
 
 @Component
 @RequiredArgsConstructor

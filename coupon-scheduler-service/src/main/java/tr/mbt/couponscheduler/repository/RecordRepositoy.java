@@ -1,4 +1,4 @@
-package tr.mbt.couponwriter.repository;
+package tr.mbt.couponscheduler.repository;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,4 +1,4 @@
-package tr.mbt.couponwriter.scheduler;
+package tr.mbt.couponscheduler.scheduler;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import tr.mbt.coupon.coupondata.data.UploadedFileStatus;
 import tr.mbt.coupon.coupondata.entity.UploadedFileEntity;
-import tr.mbt.couponwriter.repository.UploadedFileRepository;
+import tr.mbt.couponscheduler.repository.UploadedFileRepository;
 
 import java.util.List;
 

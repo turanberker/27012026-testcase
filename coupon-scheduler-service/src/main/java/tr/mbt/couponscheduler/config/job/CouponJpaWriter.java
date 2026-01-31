@@ -1,4 +1,4 @@
-package tr.mbt.couponwriter.config.job;
+package tr.mbt.couponscheduler.config.job;
 
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.item.database.JpaItemWriter;

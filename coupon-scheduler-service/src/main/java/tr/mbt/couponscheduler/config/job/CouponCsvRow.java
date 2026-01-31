@@ -1,4 +1,4 @@
-package tr.mbt.couponwriter.config.job;
+package tr.mbt.couponscheduler.config.job;
 
 import lombok.Getter;
 import lombok.Setter;

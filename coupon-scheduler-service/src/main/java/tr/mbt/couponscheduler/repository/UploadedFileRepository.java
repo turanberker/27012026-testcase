@@ -1,4 +1,4 @@
-package tr.mbt.couponwriter.repository;
+package tr.mbt.couponscheduler.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
