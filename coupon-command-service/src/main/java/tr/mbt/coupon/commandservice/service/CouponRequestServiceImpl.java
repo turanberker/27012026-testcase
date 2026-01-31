@@ -1,11 +1,13 @@
 package tr.mbt.coupon.commandservice.service;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tr.mbt.coupon.commandservice.dto.CouponRequestDto;
 import tr.mbt.coupon.commandservice.producer.RecordProducer;
 import tr.mbt.coupon.commandservice.repository.CouponRepository;
 import tr.mbt.coupon.coupondata.data.CouponType;
@@ -24,9 +26,9 @@ public class CouponRequestServiceImpl implements CouponRequestService {
 
     @Override
     @Transactional
-    public String request(final CouponType requestedType, String userId) {
+    public String request(@Valid CouponRequestDto requestDto) {
 
-        CouponType type = requestedType == null ? CouponType.STANDARD : requestedType;
+        CouponType type = requestDto.getCouponType() == null ? CouponType.STANDARD : requestDto.getCouponType();
         int pageIndex = 0;
         PageRequest pageRequest = PageRequest.of(pageIndex, 10, Sort.by(Sort.Direction.ASC, "totalUsedCount"));
         Page<CouponEntity> page =
@@ -53,7 +55,7 @@ public class CouponRequestServiceImpl implements CouponRequestService {
         } else {
             recordService.increaseTotalUsage(selectedCoupon.getCode());
 
-            recordProducer.send(new NewCouponRecordEvent(userId, selectedCoupon.getCode()));
+            recordProducer.send(new NewCouponRecordEvent(requestDto.getUserId(), selectedCoupon.getCode()));
             return selectedCoupon.getCode();
         }
     }
