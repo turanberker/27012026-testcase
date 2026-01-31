@@ -25,19 +25,15 @@ public class RecordServiceImpl implements RecordService {
 
         Optional<CouponEntity> couponOptional = couponRepository.findById(recordEvent.getCouponCode());
         if(couponOptional.isPresent()){
-            RecordEntity recordEntity = new RecordEntity();
-            recordEntity.setCouponCode(recordEvent.getCouponCode());
-            recordEntity.setUserId(recordEvent.getUserId());
+            CouponEntity couponEntity = couponOptional.get();
 
+            RecordEntity recordEntity = new RecordEntity();
+            recordEntity.setCoupon(couponEntity);
+            recordEntity.setUserId(recordEvent.getUserId());
             recordRepository.save(recordEntity);
 
-            CouponEntity couponEntity = couponOptional.get();
             couponEntity.setTotalUsedCount(couponEntity.getTotalUsedCount()+1);
             couponRepository.save(couponEntity);
         }
-
-
-
-
     }
 }

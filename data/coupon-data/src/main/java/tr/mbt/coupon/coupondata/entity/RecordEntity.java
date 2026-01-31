@@ -32,18 +32,23 @@ CREATE SEQUENCE IF NOT EXISTS coupon.RECORDT_seq;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name = "COUPON_CODE", updatable = false)
-    private String couponCode;
 
-    //FIXME Liquibase den sonra sil
     @ManyToOne(targetEntity = CouponEntity.class)
-    @JoinColumn(name = "COUPON_CODE", updatable = false, insertable = false)
+    @JoinColumn(name = "COUPON_CODE", updatable = false)
     private CouponEntity coupon;
 
+    @Column(name = "USER_ID")
     private String userId;
 
     @CreatedDate
     @Column(name = "CREATED_DATE")
     private LocalDateTime createdDate;
+
+    @NotNull
+    @Column(name = "USED")
+    private Boolean used=Boolean.FALSE;
+
+
+    @Column(name = "USED_DATE")
+    private LocalDateTime usedDate;
 }
