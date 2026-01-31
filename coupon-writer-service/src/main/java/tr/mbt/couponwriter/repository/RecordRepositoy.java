@@ -5,15 +5,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import tr.mbt.coupon.coupondata.entity.CouponEntity;
-
-import java.util.List;
+import tr.mbt.coupon.coupondata.entity.RecordEntity;
 
 @Repository
-public interface CouponRepository extends CrudRepository<CouponEntity,String> {
+public interface RecordRepositoy extends CrudRepository<RecordEntity,Long> {
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM CouponEntity c WHERE c.expiryDate < CURRENT_DATE and totalUsedCount=0")
+    @Query("delete from RecordEntity r where r.used = false and r.coupon.expiryDate < CURRENT_DATE")
     int deleteUnusedCoupons();
 }

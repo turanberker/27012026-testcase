@@ -3,20 +3,20 @@ package tr.mbt.couponwriter.scheduler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import tr.mbt.couponwriter.repository.CouponRepository;
+import tr.mbt.couponwriter.repository.RecordRepositoy;
 
 @Component
 @RequiredArgsConstructor
 public class CouponPurger {
 
-    private final CouponRepository couponRepository;
+    private final RecordRepositoy recordRepositoy;
 
     @Scheduled(fixedDelay = 600000)
     public void couponPurger() {
-        System.out.println("Coupon purging job running...");
+        System.out.println("Record purging job running...");
 
-        int deletedCount = couponRepository.deleteUnusedCoupons();
-        System.out.printf("%s Coupon purged...", deletedCount);
+        int deletedCount = recordRepositoy.deleteUnusedCoupons();
+        System.out.printf("%s Records purged...", deletedCount);
 
     }
 }
