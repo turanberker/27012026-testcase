@@ -1,3 +1,62 @@
+<h3>End Points</h3>
+<table>
+<thead>
+<td>URL</td>
+<td>Method</td>
+<td>Request Body</td>
+</thead>
+<tbody>
+<tr>
+<td>{CommanServiceUrl}/{port}/coupon/upload</td>
+<td>POST</td>
+
+<td>form-data-->name file</td>
+</tr>
+<tr>
+<td>{CommanServiceUrl}/{port}/coupon/request</td>
+<td>POST</td>
+<td>{"couponType":"FREE|STANDART|MEGADEAL" }</td>
+</tr>
+<tr>
+<td>{CommanServiceUrl}/{port}/coupon/redeem</td>
+<td>PUT</td>
+<td>{"couponCode":string }</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+<h3>Users</h3>
+<table>
+<thead>
+<td>UserName</td>
+<td>Password</td>
+<td>Role</td>
+</thead>
+<tbody>
+<tr>
+<td>admin</td>
+<td>admin</td>
+<td>ADMIN</td>
+</tr>
+<tr>
+<td>user1</td>
+<td>user</td>
+<td>USER</td>
+</tr>
+<tr>
+<td>user2</td>
+<td>user</td>
+<td>USER</td>
+</tr>
+</tbody>
+</table>
+
+
+
 <h3>Notes</h3>
 <ul>
 <li>
