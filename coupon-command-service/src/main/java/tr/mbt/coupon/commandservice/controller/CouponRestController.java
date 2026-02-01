@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import tr.mbt.coupon.commandservice.dto.CouponRequestDto;
 import tr.mbt.coupon.commandservice.dto.RedeemCouponDto;
 import tr.mbt.coupon.commandservice.dto.RedeemCouponResponse;
-import tr.mbt.coupon.commandservice.service.CouponRequestService;
+import tr.mbt.coupon.commandservice.service.CouponService;
 import tr.mbt.coupon.commandservice.service.FileUploadService;
 import tr.mbt.coupon.coupondata.data.CouponType;
 
@@ -21,7 +21,7 @@ import tr.mbt.coupon.coupondata.data.CouponType;
 public class CouponRestController {
 
     private final FileUploadService fileUploadService;
-    private final CouponRequestService service;
+    private final CouponService service;
 
     @PostMapping(path = "/upload", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<BaseResponse<String>> saveFile(@RequestPart("file") MultipartFile file) {

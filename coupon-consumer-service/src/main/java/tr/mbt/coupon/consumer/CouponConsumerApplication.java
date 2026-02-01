@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ConsumerMainApplication {
+public class CouponConsumerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ConsumerMainApplication.class, args);
+        SpringApplication.run(CouponConsumerApplication.class, args);
 
     }
 }

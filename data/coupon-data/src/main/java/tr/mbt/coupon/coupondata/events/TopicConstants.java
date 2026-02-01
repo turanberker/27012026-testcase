@@ -5,5 +5,5 @@ public class TopicConstants {
         super();
     }
 
-    public static final String TOPIC_NAME = "redeem-coupon";
+    public static final String TOPIC_NAME = "coupon-log";
 }

@@ -22,7 +22,7 @@ public class MegadealCouponCounterServiceImpl implements MegadealCouponCounterSe
 
     private static final int MAX_ACTIVE = 10;
 
-    private static final Duration LOCK_TTL = Duration.ofMinutes(1);
+    private static final Duration LOCK_TTL = Duration.ofSeconds(10);
 
 
     public boolean tryAcquire() {

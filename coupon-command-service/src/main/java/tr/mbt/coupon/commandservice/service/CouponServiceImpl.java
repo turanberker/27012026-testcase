@@ -14,13 +14,14 @@ import tr.mbt.coupon.commandservice.repository.CouponUserRepository;
 import tr.mbt.coupon.coupondata.data.CouponType;
 import tr.mbt.coupon.coupondata.entity.CouponEntity;
 import tr.mbt.coupon.coupondata.entity.CouponUserEntity;
+import tr.mbt.coupon.coupondata.events.CouponLogEvent;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CouponRequestServiceImpl implements CouponRequestService {
+public class CouponServiceImpl implements CouponService {
 
     private final CouponRepository couponRepository;
 
@@ -45,7 +46,7 @@ public class CouponRequestServiceImpl implements CouponRequestService {
     @Override
     @Transactional
     public String requestMegadealCoupon(String userId) {
-        if(!megadealCouponCounterService.tryAcquire()){
+        if (!megadealCouponCounterService.tryAcquire()) {
             throw new ProcessingServiceException("Total Megadeal Coupon request exceed to 10");
         }
 
@@ -62,11 +63,15 @@ public class CouponRequestServiceImpl implements CouponRequestService {
             couponUser.setCoupon(selectedCoupon.get());
             couponUserRepository.save(couponUser);
 
-            return selectedCoupon.get().getCode();
+            String code = selectedCoupon.get().getCode();
+
+            recordProducer.send(new CouponLogEvent(selectedCoupon.get().getCouponType(), CouponLogEvent.EventType.ALLOCATED));
+            return code;
         }
     }
 
     @Override
+    @Transactional
     public RedeemCouponResponse redeemCoupon(RedeemCouponDto redeemCouponDto) {
         CouponUserEntity availableCoupon =
                 couponUserRepository.getAvailableCoupon(redeemCouponDto.getUserId(), redeemCouponDto.getCouponCode())
@@ -76,6 +81,11 @@ public class CouponRequestServiceImpl implements CouponRequestService {
         couponUserRepository.save(availableCoupon);
 
         CouponEntity coupon = availableCoupon.getCoupon();
+        coupon.setMaxUsages(coupon.getMaxUsages() + 1);
+        couponRepository.save(coupon);
+
+        recordProducer.send(new CouponLogEvent(availableCoupon.getCoupon().getCouponType(), CouponLogEvent.EventType.USED));
+
         RedeemCouponResponse redeemCouponResponse = new RedeemCouponResponse();
         redeemCouponResponse.setDiscount(coupon.getDiscountAmount());
         redeemCouponResponse.setDiscountType(coupon.getDiscountType());

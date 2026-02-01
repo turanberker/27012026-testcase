@@ -17,7 +17,7 @@ public class MegadealCounterDocument {
     private String id;
 
     @TimeToLive
-    private Long ttl = 20L;
+    private Long ttl = 1L;
 
     public MegadealCounterDocument(UUID id) {
         this.id = id.toString();

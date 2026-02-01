@@ -38,8 +38,8 @@ public class CouponEntity {
     @Column(name = "MAX_USAGE", nullable = false)
     private Long maxUsages;
 
-    @Column(name = "TOTAL_USED_COUNT", nullable = false,columnDefinition = "integer default 0")
-    private Integer totalUsedCount = 0;
+    @Column(name = "TOTAL_USED_COUNT", nullable = false)
+    private Long totalUsedCount = 0L;
 
 
 

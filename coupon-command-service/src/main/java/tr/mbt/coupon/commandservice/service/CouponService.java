@@ -9,7 +9,7 @@ import tr.mbt.coupon.commandservice.dto.RedeemCouponResponse;
 import tr.mbt.coupon.coupondata.data.CouponType;
 
 @Validated
-public interface CouponRequestService {
+public interface CouponService {
 
     //FIXME After security remove userId
     String requestNonMegadealCoupon(@Valid CouponRequestDto requestDto);

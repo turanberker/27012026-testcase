@@ -4,17 +4,23 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tr.mbt.coupon.coupondata.data.CouponType;
 
 import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewCouponRecordEvent implements Serializable {
+public class CouponLogEvent implements Serializable {
 
     @NotBlank
-    private String userId;
+    private CouponType couponType;
 
     @NotBlank
-    private String couponCode;
+    private EventType type;
+
+    public enum EventType {
+        USED,
+        ALLOCATED
+    }
 }
