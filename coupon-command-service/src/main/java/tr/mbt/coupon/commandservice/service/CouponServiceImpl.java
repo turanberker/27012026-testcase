@@ -1,6 +1,7 @@
 package tr.mbt.coupon.commandservice.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tr.mbt.coupon.commandservice.dto.CouponRequestDto;
@@ -39,27 +40,28 @@ public class CouponServiceImpl implements CouponService {
         CouponType type = requestDto.getCouponType() == null ? CouponType.STANDARD : requestDto.getCouponType();
 
         Optional<CouponEntity> selectedCoupon = couponRepository.findAvailableCoupons(type);
-
-        return saveCouponUSer(selectedCoupon, requestDto.getUserId());
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        return saveCouponUSer(selectedCoupon, userName);
     }
 
     @Override
     @Transactional
-    public String requestMegadealCoupon(String userId) {
+    public String requestMegadealCoupon() {
         if (!megadealCouponCounterService.tryAcquire()) {
             throw new ProcessingServiceException("Total Megadeal Coupon request exceed to 10");
         }
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 
         Optional<CouponEntity> megadealCouponOp = couponRepository.findAvailableMegadealCoupon();
-        return saveCouponUSer(megadealCouponOp, userId);
+        return saveCouponUSer(megadealCouponOp, userName);
     }
 
-    private String saveCouponUSer(Optional<CouponEntity> selectedCoupon, String userId) {
+    private String saveCouponUSer(Optional<CouponEntity> selectedCoupon, String userName) {
         if (selectedCoupon.isEmpty()) {
             throw new ProcessingServiceException("No Available Coupon");
         } else {
             CouponUserEntity couponUser = new CouponUserEntity();
-            couponUser.setUserId(userId);
+            couponUser.setUserId(userName);
             couponUser.setCoupon(selectedCoupon.get());
             couponUserRepository.save(couponUser);
 
@@ -73,8 +75,10 @@ public class CouponServiceImpl implements CouponService {
     @Override
     @Transactional
     public RedeemCouponResponse redeemCoupon(RedeemCouponDto redeemCouponDto) {
+
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         CouponUserEntity availableCoupon =
-                couponUserRepository.getAvailableCoupon(redeemCouponDto.getUserId(), redeemCouponDto.getCouponCode())
+                couponUserRepository.getAvailableCoupon(userName, redeemCouponDto.getCouponCode())
                         .orElseThrow(() -> new ProcessingServiceException("Don't have coupon"));
 
         availableCoupon.setUsedDate(LocalDateTime.now());

@@ -25,6 +25,7 @@
         <module>core/service-common</module>
         <module>core/minioclient</module>
         <module>data/coupon-data</module>
+        <module>core/coupon-security</module>
 
     </modules>
 
@@ -62,7 +63,11 @@
                 <artifactId>minioclient</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>tr.mbt.coupon</groupId>
+                <artifactId>coupon-security</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
             <dependency>
                 <groupId>tr.mbt.coupon</groupId>
                 <artifactId>coupon-data</artifactId>

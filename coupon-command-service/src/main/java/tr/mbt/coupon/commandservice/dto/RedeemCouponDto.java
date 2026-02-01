@@ -7,8 +7,5 @@ import lombok.Data;
 public class RedeemCouponDto {
 
     @NotBlank
-    private String userId;
-
-    @NotBlank
     private String couponCode;
 }

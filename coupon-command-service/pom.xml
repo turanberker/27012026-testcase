@@ -30,7 +30,6 @@
         </dependency>
 
 
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
@@ -69,6 +68,11 @@
         <dependency>
             <groupId>tr.mbt.coupon</groupId>
             <artifactId>minioclient</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>tr.mbt.coupon</groupId>
+            <artifactId>coupon-security</artifactId>
         </dependency>
     </dependencies>
 

@@ -14,7 +14,7 @@ public interface CouponService {
     //FIXME After security remove userId
     String requestNonMegadealCoupon(@Valid CouponRequestDto requestDto);
 
-    String requestMegadealCoupon(String userId);
+    String requestMegadealCoupon();
 
     RedeemCouponResponse redeemCoupon(RedeemCouponDto redeemCouponDto);
 }
