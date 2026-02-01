@@ -1,3 +1,31 @@
+<h3>Build</h3>
+
+<table>
+<thead>
+<td>Application</td>
+<td>Build Command</td>
+</thead>
+<tbody>
+<tr>
+<td>Command Application</td>
+<td>docker build -f .\command.Dockerfile -t coupon-command-server .</td>
+</tr>
+<tr>
+<td>Consumer Application</td>
+<td>docker build -f .\consumer.Dockerfile -t coupon-consumer-server .</td>
+</tr>
+<tr>
+<td>Command Application</td>
+<td>docker build -f .\scheduler.Dockerfile -t coupon-scheduler-server .</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
 <h3>End Points</h3>
 <table>
 <thead>
