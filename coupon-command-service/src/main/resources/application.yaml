@@ -21,7 +21,7 @@ spring:
     properties:
       hibernate:
         default_schema: coupon
-        format_sql: true
+        format_sql: false
         jdbc:
           time_zone: UTC
 

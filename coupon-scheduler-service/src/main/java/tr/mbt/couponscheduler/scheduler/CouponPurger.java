@@ -3,13 +3,13 @@ package tr.mbt.couponscheduler.scheduler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import tr.mbt.couponscheduler.repository.RecordRepositoy;
+import tr.mbt.couponscheduler.repository.CouponUserRepositoy;
 
 @Component
 @RequiredArgsConstructor
 public class CouponPurger {
 
-    private final RecordRepositoy recordRepositoy;
+    private final CouponUserRepositoy recordRepositoy;
 
     @Scheduled(fixedDelay = 600000)
     public void couponPurger() {

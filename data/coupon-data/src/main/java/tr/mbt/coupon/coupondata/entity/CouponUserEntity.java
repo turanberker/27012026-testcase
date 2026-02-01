@@ -1,6 +1,7 @@
 package tr.mbt.coupon.coupondata.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,11 +11,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "RECORD")
+@Table(name = "COUPON_USER")
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
-public class RecordEntity {
+public class CouponUserEntity {
 
     @Id
     @Column(name = "ID")
@@ -33,22 +34,19 @@ CREATE SEQUENCE IF NOT EXISTS coupon.RECORDT_seq;
     private Long id;
 
 
+    @NotNull
     @ManyToOne(targetEntity = CouponEntity.class)
     @JoinColumn(name = "COUPON_CODE", updatable = false)
     private CouponEntity coupon;
 
-    @Column(name = "USER_ID")
+    @NotBlank
+    @Column(name = "USER_ID",updatable = false)
     private String userId;
 
     @CreatedDate
     @Column(name = "CREATED_DATE")
     private LocalDateTime createdDate;
 
-    @NotNull
-    @Column(name = "USED")
-    private Boolean used=Boolean.FALSE;
-
-
-    @Column(name = "USED_DATE")
+    @Column(name = "USED_DATE",insertable = false)
     private LocalDateTime usedDate;
 }

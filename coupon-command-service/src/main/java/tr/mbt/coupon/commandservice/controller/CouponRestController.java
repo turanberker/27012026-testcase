@@ -1,15 +1,18 @@
 package tr.mbt.coupon.commandservice.controller;
 
 import com.mbt.servicecommon.BaseResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import tr.mbt.coupon.commandservice.dto.CouponRequestDto;
+import tr.mbt.coupon.commandservice.dto.RedeemCouponDto;
+import tr.mbt.coupon.commandservice.dto.RedeemCouponResponse;
+import tr.mbt.coupon.commandservice.service.CouponRequestService;
 import tr.mbt.coupon.commandservice.service.FileUploadService;
+import tr.mbt.coupon.coupondata.data.CouponType;
 
 
 @RestController
@@ -18,6 +21,7 @@ import tr.mbt.coupon.commandservice.service.FileUploadService;
 public class CouponRestController {
 
     private final FileUploadService fileUploadService;
+    private final CouponRequestService service;
 
     @PostMapping(path = "/upload", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<BaseResponse<String>> saveFile(@RequestPart("file") MultipartFile file) {
@@ -25,5 +29,23 @@ public class CouponRestController {
         String uploadedFileName = fileUploadService.upload(file);
         BaseResponse<String> success = BaseResponse.success(uploadedFileName);
         return ResponseEntity.ok(success);
+    }
+
+
+    @PostMapping(path = "/request", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse<String>> request(@RequestBody @Valid CouponRequestDto requestDto) {
+
+        String cuponCode = null;
+        if (CouponType.MEGADEAL.equals(requestDto.getCouponType())) {
+            cuponCode = service.requestMegadealCoupon(requestDto.getUserId());
+        } else {
+            cuponCode = service.requestNonMegadealCoupon(requestDto);
+        }
+        return ResponseEntity.ok(BaseResponse.success(cuponCode));
+    }
+
+    @PutMapping(path = "/redeem", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse<RedeemCouponResponse>> redeem(@RequestBody @Valid RedeemCouponDto redeemCouponRequest) {
+        return ResponseEntity.ok(BaseResponse.success(service.redeemCoupon(redeemCouponRequest)));
     }
 }

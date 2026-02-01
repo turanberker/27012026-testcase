@@ -4,11 +4,17 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.validation.annotation.Validated;
 import tr.mbt.coupon.commandservice.dto.CouponRequestDto;
+import tr.mbt.coupon.commandservice.dto.RedeemCouponDto;
+import tr.mbt.coupon.commandservice.dto.RedeemCouponResponse;
 import tr.mbt.coupon.coupondata.data.CouponType;
 
 @Validated
 public interface CouponRequestService {
 
     //FIXME After security remove userId
-    String request(@Valid CouponRequestDto requestDto);
+    String requestNonMegadealCoupon(@Valid CouponRequestDto requestDto);
+
+    String requestMegadealCoupon(String userId);
+
+    RedeemCouponResponse redeemCoupon(RedeemCouponDto redeemCouponDto);
 }
