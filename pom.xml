@@ -19,7 +19,7 @@
     <modules>
         <module>coupon-scheduler-service</module>
         <module>coupon-command-service</module>
-        <module>coupon-query-service</module>
+
         <module>coupon-consumer-service</module>
 
         <module>core/service-common</module>
@@ -34,9 +34,6 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
-
-
-
 
     <build>
         <plugins>
