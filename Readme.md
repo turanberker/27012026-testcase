@@ -23,7 +23,7 @@
 <tr>
 <td>{CommanServiceUrl}/{port}/coupon/redeem</td>
 <td>PUT</td>
-<td>{"couponCode":string }</td>
+<td>{"couponCode":string * required}</td>
 <td>USER</td>
 </tr>
 </tbody>
