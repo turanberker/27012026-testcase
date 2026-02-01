@@ -4,6 +4,7 @@
 <td>URL</td>
 <td>Method</td>
 <td>Request Body</td>
+<td>Required Role</td>
 </thead>
 <tbody>
 <tr>
@@ -11,16 +12,19 @@
 <td>POST</td>
 
 <td>form-data-->name file</td>
+<td>ADMIN</td>
 </tr>
 <tr>
 <td>{CommanServiceUrl}/{port}/coupon/request</td>
 <td>POST</td>
 <td>{"couponType":"FREE|STANDART|MEGADEAL" }</td>
+<td>USER</td>
 </tr>
 <tr>
 <td>{CommanServiceUrl}/{port}/coupon/redeem</td>
 <td>PUT</td>
 <td>{"couponCode":string }</td>
+<td>USER</td>
 </tr>
 </tbody>
 </table>
