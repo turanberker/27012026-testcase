@@ -17,7 +17,7 @@ spring:
     open-in-view: false
     show-sql: true
     hibernate:
-      ddl-auto: create   # local: update / create, prod: validate
+      ddl-auto: update   # local: update / create, prod: validate
     properties:
       hibernate:
         default_schema: coupon

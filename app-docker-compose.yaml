@@ -12,7 +12,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - app_postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U adminnn" ]
       interval: 10s
@@ -31,7 +31,7 @@ services:
       - "9000:9000"   # S3 API
       - "9001:9001"   # Web Console
     volumes:
-      - minio_data:/data
+      - app_minio_data:/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
@@ -46,7 +46,7 @@ services:
       - "6379:6379"
     command: [ "redis-server", "--appendonly", "yes" ]
     volumes:
-      - redis_data:/data
+      - app_redis_data:/data
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
       interval: 10s
@@ -71,7 +71,7 @@ services:
     ports:
       - 22181:2181
     volumes:
-      - zookeeper_data:/var/lib/zookeeper/data
+      - app_zookeeper_data:/var/lib/zookeeper/data
 
   kafka:
     image: confluentinc/cp-kafka:7.4.4
@@ -83,12 +83,15 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     volumes:
-      - kafka_data:/var/lib/kafka/data
+      - app_kafka_data:/var/lib/kafka/data
 
   commandService:
     image: coupon-command-service
@@ -150,8 +153,8 @@ services:
 
 
 volumes:
-  postgres_data:
-  minio_data:
-  redis_data:
-  kafka_data:
-  zookeeper_data:
+  app_postgres_data:
+  app_minio_data:
+  app_redis_data:
+  app_kafka_data:
+  app_zookeeper_data:
