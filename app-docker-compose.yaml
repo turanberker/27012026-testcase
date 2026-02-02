@@ -95,7 +95,7 @@ services:
     build:
       context: .
       dockerfile: command.Dockerfile
-    container_name: coupon-app
+    container_name: coupon-command-service
     ports:
       - "8500:8500"
     environment:
@@ -120,7 +120,7 @@ services:
     build:
       context: .
       dockerfile: consumer.Dockerfile
-    container_name: consumer-app
+    container_name: coupon-consumer-service
     environment:
       SPRING_PROFILES_ACTIVE: docker
       DB_URL: jdbc:postgresql://postgres:5432/coupon
@@ -136,7 +136,7 @@ services:
     build:
       context: .
       dockerfile: scheduler.Dockerfile
-    container_name: scheduler-app
+    container_name: coupon-scheduler-service
     environment:
       SPRING_PROFILES_ACTIVE: docker
       DB_URL: jdbc:postgresql://postgres:5432/coupon

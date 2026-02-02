@@ -33,6 +33,6 @@ ENV KAFKA_BOOTSTRAP_SERVERS=kafka:29092
 ENV REDIS_HOST=redis
 ENV REDIS_PORT=6379
 
-COPY --from=build /build/coupon-scheduler-service/target/*jar app.jar
+COPY --from=build /build/coupon-command-service/target/*jar app.jar
 
 ENTRYPOINT ["java","-jar","app.jar"]

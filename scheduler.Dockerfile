@@ -26,7 +26,7 @@ ENV MINIO_ENDPOINT=http://minio
 ENV MINIO_ACCESSKEY=minioadmin
 ENV MINIO_SECRETKEY=minioadmin123
 
-COPY --from=build /build/coupon-command-service/target/*jar app.jar
+COPY --from=build /build/coupon-scheduler-service/target/*jar app.jar
 
 
 ENTRYPOINT ["java","-jar","app.jar"]
