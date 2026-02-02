@@ -1,0 +1,157 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: coupon
+      POSTGRES_USER: adminnn
+      POSTGRES_PASSWORD: adminnn
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U adminnn" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    command: server /data --console-address ":9001"
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    ports:
+      - "9000:9000"   # S3 API
+      - "9001:9001"   # Web Console
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  redis:
+    image: redis:7.2
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: [ "redis-server", "--appendonly", "yes" ]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis-ui:
+    image: redis/redisinsight:latest
+    container_name: redis-ui
+    restart: unless-stopped
+    ports:
+      - "5540:5540"
+    depends_on:
+      - redis
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.4
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
+    volumes:
+      - zookeeper_data:/var/lib/zookeeper/data
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.4
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+
+  commandService:
+    image: coupon-command-service
+    build:
+      context: .
+      dockerfile: command.Dockerfile
+    container_name: coupon-app
+    ports:
+      - "8500:8500"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_URL: jdbc:postgresql://postgres:5432/coupon
+      DB_USERNAME: adminnn
+      DB_PASSWORD: adminnn
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESSKEY: minioadmin
+      MINIO_SECRETKEY: minioadmin123
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      - postgres
+      - redis
+      - minio
+
+
+  comsumerService:
+    image: coupon-consumer-service
+    build:
+      context: .
+      dockerfile: consumer.Dockerfile
+    container_name: consumer-app
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_URL: jdbc:postgresql://postgres:5432/coupon
+      DB_USERNAME: adminnn
+      DB_PASSWORD: adminnn
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      - commandService
+
+
+  schedulerService:
+    image: coupon-scheduler-service
+    build:
+      context: .
+      dockerfile: scheduler.Dockerfile
+    container_name: scheduler-app
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_URL: jdbc:postgresql://postgres:5432/coupon
+      DB_USERNAME: adminnn
+      DB_PASSWORD: adminnn
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESSKEY: minioadmin
+      MINIO_SECRETKEY: minioadmin123
+    depends_on:
+      - commandService
+
+
+volumes:
+  postgres_data:
+  minio_data:
+  redis_data:
+  kafka_data:
+  zookeeper_data:

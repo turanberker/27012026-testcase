@@ -1,4 +1,14 @@
+Liquibase eklediğinde 
+CREATE INDEX idx_coupon_user_active
+ON coupon_user (coupon_code)
+WHERE used_date IS NULL;
+unutma
+
+
+
+
 <h3>Build</h3>
+You can run docker compose -f app-docker-compose.yml up -d --build to build and run all containers
 
 <table>
 <thead>

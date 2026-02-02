@@ -17,7 +17,7 @@ spring:
     open-in-view: false
     show-sql: true
     hibernate:
-      ddl-auto: update   # local: update / create, prod: validate
+      ddl-auto: create   # local: update / create, prod: validate
     properties:
       hibernate:
         default_schema: coupon
@@ -47,7 +47,7 @@ spring:
           min-idle: 2
           max-wait: 2000ms
   kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_ADRESS:localhost:29092}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:29092}
 
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
