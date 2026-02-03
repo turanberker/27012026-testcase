@@ -2,7 +2,6 @@ package tr.mbt.coupon.consumer.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tr.mbt.coupon.consumer.entity.LogEntity;

@@ -26,6 +26,9 @@ ENV MINIO_ENDPOINT=http://minio
 ENV MINIO_ACCESSKEY=minioadmin
 ENV MINIO_SECRETKEY=minioadmin123
 
+# ---- Kafka ----
+ENV KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+
 COPY --from=build /build/coupon-scheduler-service/target/*jar app.jar
 
 

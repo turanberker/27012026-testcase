@@ -150,6 +150,7 @@ services:
       MINIO_ENDPOINT: http://minio:9000
       MINIO_ACCESSKEY: minioadmin
       MINIO_SECRETKEY: minioadmin123
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
       - commandService
 

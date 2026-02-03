@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import tr.mbt.coupon.coupondata.entity.CouponEntity;
+import tr.mbt.coupon.loggingaop.EnableLoggingConfig;
 import tr.mbt.couponscheduler.config.job.*;
 import tr.mbt.couponscheduler.entity.CouponErrorEntity;
 import tr.mbt.minioclient.configuration.EnableMinioConfiguration;
@@ -23,6 +24,7 @@ import tr.mbt.minioclient.configuration.EnableMinioConfiguration;
 @EnableBatchProcessing
 @EntityScan(basePackageClasses = {CouponEntity.class, CouponErrorEntity.class})
 @Configuration
+@EnableLoggingConfig
 public class CouponWriterConfigurations {
 
     @Bean
