@@ -48,18 +48,18 @@ You can run docker compose -f app-docker-compose.yml up -d --build to build and 
 <tr>
 <td>{CommanServiceUrl}/{port}/coupon/request</td>
 <td>POST</td>
-<td>{"couponType":"FREE|STANDART|MEGADEAL" }</td>
+<td>{"userId":string * required,"couponType":"FREE|STANDART|MEGADEAL" }</td>
 <td>USER</td>
 </tr>
 <tr>
 <td>{CommanServiceUrl}/{port}/coupon/redeem</td>
 <td>PUT</td>
-<td>{"couponCode":string * required}</td>
+<td>{"userId":"string * required,"couponCode":string * required}</td>
 <td>USER</td>
 </tr>
 </tbody>
 </table>
-
+Note: if SECURITY_ENABLED is true then you can leave userId fields as empty(Will be ignored).  
 
 
 
