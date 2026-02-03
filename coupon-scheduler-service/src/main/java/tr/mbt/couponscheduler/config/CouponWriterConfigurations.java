@@ -1,5 +1,8 @@
 package tr.mbt.couponscheduler.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -26,7 +29,12 @@ import tr.mbt.minioclient.configuration.EnableMinioConfiguration;
 @Configuration
 @EnableLoggingConfig
 public class CouponWriterConfigurations {
-
+    @Bean
+    public ObjectMapper objectMapper() {
+        return JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+    }
     @Bean
     public Job couponImportJob(
             JobRepository jobRepository,
