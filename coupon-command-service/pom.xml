@@ -50,11 +50,7 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>tr.mbt.coupon</groupId>
             <artifactId>service-common</artifactId>
@@ -83,6 +79,12 @@
         <dependency>
             <groupId>tr.mbt.coupon</groupId>
             <artifactId>logging-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
