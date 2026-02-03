@@ -33,6 +33,8 @@ ENV KAFKA_BOOTSTRAP_SERVERS=kafka:29092
 ENV REDIS_HOST=redis
 ENV REDIS_PORT=6379
 
+# ---- SECURITY ----
+ENV SECURITY_ENABLED=true
 COPY --from=build /build/coupon-command-service/target/*jar app.jar
 
 ENTRYPOINT ["java","-jar","app.jar"]

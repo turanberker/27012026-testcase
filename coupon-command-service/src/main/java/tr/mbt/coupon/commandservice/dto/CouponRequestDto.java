@@ -4,7 +4,9 @@ import lombok.Data;
 import tr.mbt.coupon.coupondata.data.CouponType;
 
 @Data
-public class CouponRequestDto {
+public class CouponRequestDto implements HasUserId {
+
+    private String userId;
 
     private CouponType couponType;
 }

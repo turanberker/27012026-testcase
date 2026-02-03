@@ -8,7 +8,6 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 import tr.mbt.coupon.commandservice.redis.MegadealCounterRepository;
 import tr.mbt.coupon.coupondata.entity.CouponEntity;
 import tr.mbt.coupon.loggingaop.EnableLoggingConfig;
-import tr.mbt.coupon.security.configuration.EnableSecurityConfigurations;
 import tr.mbt.minioclient.configuration.EnableMinioConfiguration;
 
 @Configuration
@@ -17,7 +16,8 @@ import tr.mbt.minioclient.configuration.EnableMinioConfiguration;
 @EnableMinioConfiguration
 @EnableCaching
 @EnableJpaAuditing
-@EnableSecurityConfigurations
 @EnableLoggingConfig
 public class CommandServiceConfiguration {
+
+
 }

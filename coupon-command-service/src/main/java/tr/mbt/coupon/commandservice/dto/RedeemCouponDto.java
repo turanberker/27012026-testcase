@@ -4,7 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class RedeemCouponDto {
+public class RedeemCouponDto  implements HasUserId{
+
+     private String userId;
 
     @NotBlank
     private String couponCode;
