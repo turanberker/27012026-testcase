@@ -14,16 +14,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import tr.mbt.coupon.coupondata.entity.CouponEntity;
-import tr.mbt.couponscheduler.config.job.CouponCsvRow;
-import tr.mbt.couponscheduler.config.job.CouponItemProcessor;
-import tr.mbt.couponscheduler.config.job.CouponJobListener;
-import tr.mbt.couponscheduler.config.job.CouponJpaWriter;
+import tr.mbt.couponscheduler.config.job.*;
+import tr.mbt.couponscheduler.entity.CouponErrorEntity;
 import tr.mbt.minioclient.configuration.EnableMinioConfiguration;
 
 @EnableScheduling
 @EnableMinioConfiguration
 @EnableBatchProcessing
-@EntityScan(basePackageClasses = CouponEntity.class)
+@EntityScan(basePackageClasses = {CouponEntity.class, CouponErrorEntity.class})
 @Configuration
 public class CouponWriterConfigurations {
 
@@ -44,13 +42,20 @@ public class CouponWriterConfigurations {
             JobRepository jobRepository,
             PlatformTransactionManager transactionManager,
             FlatFileItemReader<CouponCsvRow> couponCsvReader,
+            CouponSkipListener skipListener,
+            CouponStepListener couponStepListener,
             EntityManagerFactory emf
     ) {
         return new StepBuilder("couponImportStep", jobRepository)
-                .<CouponCsvRow, CouponEntity>chunk(1, transactionManager)
+                .<CouponCsvRow, CouponEntity>chunk(50, transactionManager)
                 .reader(couponCsvReader)
                 .processor(new CouponItemProcessor())
                 .writer(CouponJpaWriter.writer(emf))
+                .faultTolerant()
+                .skip(Exception.class)
+                .skipLimit(100)
+                .listener(skipListener)
+                .listener(couponStepListener)
                 .build();
     }
 }

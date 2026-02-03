@@ -5,8 +5,6 @@ import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.core.io.Resource;
 
-import java.time.LocalDate;
-
 import static tr.mbt.coupon.coupondata.constants.UploadedFileConstants.*;
 
 public class CouponCsvReader {
@@ -28,9 +26,9 @@ public class CouponCsvReader {
             row.setCode(fieldSet.readString(CODE));
             row.setType(fieldSet.readString(TYPE));
             row.setDiscountType(fieldSet.readString(DISCOUNT_TYPE));
-            row.setDiscountAmount(fieldSet.readBigDecimal(DISCOUNT_AMOUNT));
-            row.setExpiryDate(LocalDate.parse(fieldSet.readString(EXPIRY_DATE)));
-            row.setMaxUsages(fieldSet.readLong(MAX_USAGE));
+            row.setDiscountAmount(fieldSet.readString(DISCOUNT_AMOUNT));
+            row.setExpiryDate(fieldSet.readString(EXPIRY_DATE));
+            row.setMaxUsages(fieldSet.readString(MAX_USAGE));
             return row;
         });
 

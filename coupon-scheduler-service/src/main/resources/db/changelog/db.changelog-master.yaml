@@ -6,3 +6,6 @@ databaseChangeLog:
         - sqlFile:
             path: org/springframework/batch/core/schema-postgresql.sql
             relativeToChangelogFile: false
+  - includeAll:
+      path: db/changelog/sql
+      relativeToChangelogFile: false

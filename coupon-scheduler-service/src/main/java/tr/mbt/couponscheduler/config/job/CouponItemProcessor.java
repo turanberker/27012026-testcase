@@ -5,6 +5,11 @@ import tr.mbt.coupon.coupondata.data.CouponType;
 import tr.mbt.coupon.coupondata.data.DiscountType;
 import tr.mbt.coupon.coupondata.entity.CouponEntity;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import static tr.mbt.coupon.coupondata.constants.UploadedFileConstants.EXPIRY_DATE;
+
 
 public class CouponItemProcessor
         implements ItemProcessor<CouponCsvRow, CouponEntity> {
@@ -20,12 +25,10 @@ public class CouponItemProcessor
                 ? CouponType.valueOf(row.getType())
                 : null);
         couponEntity.setDiscountType(DiscountType.valueOf(row.getDiscountType()));
-        couponEntity.setDiscountAmount(row.getDiscountAmount());
-        couponEntity.setExpiryDate(row.getExpiryDate());
-        couponEntity.setMaxUsages(row.getMaxUsages());
+        couponEntity.setDiscountAmount(new BigDecimal(row.getDiscountAmount()));
+        couponEntity.setExpiryDate(LocalDate.parse(row.getExpiryDate()));
+        couponEntity.setMaxUsages(Long.valueOf(row.getMaxUsages()));
 
-
-        System.out.println(couponEntity.toString());
         return couponEntity;
     }
 }

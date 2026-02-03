@@ -9,6 +9,7 @@ public class CouponJpaWriter {
     public static JpaItemWriter<CouponEntity> writer(EntityManagerFactory emf) {
         JpaItemWriter<CouponEntity> writer = new JpaItemWriter<>();
         writer.setEntityManagerFactory(emf);
+        writer.setUsePersist(true);
         return writer;
     }
 }
