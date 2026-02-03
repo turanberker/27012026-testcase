@@ -1,10 +1,3 @@
-Liquibase eklediğinde 
-CREATE INDEX idx_coupon_user_active
-ON coupon_user (coupon_code)
-WHERE used_date IS NULL;
-unutma
-
-
 
 
 <h3>Build</h3>

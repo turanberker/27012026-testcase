@@ -17,7 +17,7 @@ spring:
     open-in-view: false
     show-sql: true
     hibernate:
-      ddl-auto: update   # local: update / create, prod: validate
+      ddl-auto: validate   # local: update / create, prod: validate
     properties:
       hibernate:
         default_schema: coupon
@@ -55,6 +55,10 @@ spring:
       acks: all
       retries: 3
 
+  liquibase:
+    enabled: true
+    default-schema: coupon
+    change-log: classpath:db/changelog/db.changelog-master.yaml
 
 minio:
   endpoint: ${MINIO_ENDPOINT:http://localhost:9000}

@@ -19,18 +19,16 @@ public class CouponUserEntity {
 
     @Id
     @Column(name = "ID")
-/*Liquibase e taşındıktan sonra
-CREATE SEQUENCE IF NOT EXISTS coupon.RECORDT_seq;
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "default_seq_gen"
     )
     @SequenceGenerator(
             name = "default_seq_gen",
-            sequenceName = "coupon_seq",
+            sequenceName = "coupon_user_seq",
             allocationSize = 50
-    )*/
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    )
+
     private Long id;
 
 
@@ -40,13 +38,13 @@ CREATE SEQUENCE IF NOT EXISTS coupon.RECORDT_seq;
     private CouponEntity coupon;
 
     @NotBlank
-    @Column(name = "USER_ID",updatable = false)
+    @Column(name = "USER_ID", updatable = false)
     private String userId;
 
     @CreatedDate
     @Column(name = "CREATED_DATE")
     private LocalDateTime createdDate;
 
-    @Column(name = "USED_DATE",insertable = false)
+    @Column(name = "USED_DATE", insertable = false)
     private LocalDateTime usedDate;
 }
