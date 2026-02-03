@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tr.mbt.coupon.consumer.repository.CouponTypeLogRepository;
 import tr.mbt.coupon.coupondata.entity.CouponTypeLogEntity;
 import tr.mbt.coupon.coupondata.events.CouponLogEvent;
+import tr.mbt.coupon.loggingaop.CouponLog;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +16,7 @@ public class CouponTypeLogServiceImpl implements CouponTypeLogService {
 
     @Override
     @Transactional
+    @CouponLog(logArgs = true)
     public void saveRecord(CouponLogEvent recordEvent) {
 
         CouponTypeLogEntity log = repository.findById(recordEvent.getCouponType())
@@ -26,6 +28,5 @@ public class CouponTypeLogServiceImpl implements CouponTypeLogService {
             log.setCreatedCount(log.getCreatedCount() + 1);
         }
         repository.save(log);
-
     }
 }

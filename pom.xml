@@ -26,6 +26,8 @@
         <module>core/minioclient</module>
         <module>data/coupon-data</module>
         <module>core/coupon-security</module>
+        <module>core/logging-aop</module>
+        <module>core/log-data</module>
 
     </modules>
 
@@ -61,11 +63,22 @@
             <dependency>
                 <groupId>tr.mbt.coupon</groupId>
                 <artifactId>coupon-security</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>tr.mbt.coupon</groupId>
                 <artifactId>coupon-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>tr.mbt.coupon</groupId>
+                <artifactId>log-data</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>tr.mbt.coupon</groupId>
+                <artifactId>logging-aop</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
         </dependencies>

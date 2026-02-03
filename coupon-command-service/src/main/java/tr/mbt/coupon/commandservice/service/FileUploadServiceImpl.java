@@ -8,6 +8,7 @@ import tr.mbt.coupon.commandservice.exception.ProcessingServiceException;
 import tr.mbt.coupon.commandservice.repository.UploadedFileRepository;
 import tr.mbt.coupon.coupondata.constants.UploadedFileConstants;
 import tr.mbt.coupon.coupondata.entity.UploadedFileEntity;
+import tr.mbt.coupon.loggingaop.CouponLog;
 import tr.mbt.minioclient.FileStorageClient;
 
 import java.io.BufferedReader;
@@ -27,6 +28,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     @Override
     @Transactional
+    @CouponLog(logArgs = true, logResult = true,logException = true)
     public String upload(MultipartFile file) {
 
         if (file == null || file.isEmpty()) {
@@ -70,19 +72,19 @@ public class FileUploadServiceImpl implements FileUploadService {
             throw new RuntimeException("CSV file read error", e);
         }
 
-        boolean exists = repository.existsById(file.getName());
+        boolean exists = repository.existsById(file.getOriginalFilename());
         if (exists) {
             throw new ProcessingServiceException("File is uploaded before");
         }
-        UploadedFileEntity uploadedFileEntity = new UploadedFileEntity(file.getName());
+        UploadedFileEntity uploadedFileEntity = new UploadedFileEntity(file.getOriginalFilename());
         uploadedFileEntity = repository.save(uploadedFileEntity);
 
         try {
-            fileStorageClient.upload(file.getName(), file.getInputStream(), file.getSize(), file.getContentType());
+            fileStorageClient.upload(file.getOriginalFilename(), file.getInputStream(), file.getSize(), file.getContentType());
         } catch (IOException e) {
             throw new ProcessingServiceException("File can not uploaded");
         }
 
-        return uploadedFileEntity.getFileName();
+        return file.getOriginalFilename();
     }
 }

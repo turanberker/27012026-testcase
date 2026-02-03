@@ -16,6 +16,7 @@ import tr.mbt.coupon.coupondata.data.CouponType;
 import tr.mbt.coupon.coupondata.entity.CouponEntity;
 import tr.mbt.coupon.coupondata.entity.CouponUserEntity;
 import tr.mbt.coupon.coupondata.events.CouponLogEvent;
+import tr.mbt.coupon.loggingaop.CouponLog;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -33,6 +34,7 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     @Transactional
+    @CouponLog(logArgs = true, logResult = true,logException = true)
     public String requestNonMegadealCoupon(CouponRequestDto requestDto) {
         if (CouponType.MEGADEAL.equals(requestDto.getCouponType())) {
             throw new IllegalArgumentException("This method can not be called for MEGADEAL Coupon Type");
@@ -46,6 +48,7 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     @Transactional
+    @CouponLog(logArgs = true, logResult = true,logException = true)
     public String requestMegadealCoupon() {
         if (!megadealCouponCounterService.tryAcquire()) {
             throw new ProcessingServiceException("Total Megadeal Coupon request exceed to 10");
@@ -74,6 +77,7 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     @Transactional
+    @CouponLog(logArgs = true, logResult = true,logException = true)
     public RedeemCouponResponse redeemCoupon(RedeemCouponDto redeemCouponDto) {
 
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();

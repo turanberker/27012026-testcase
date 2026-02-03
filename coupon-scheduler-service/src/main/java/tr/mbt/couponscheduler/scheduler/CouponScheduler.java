@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import tr.mbt.coupon.coupondata.data.UploadedFileStatus;
 import tr.mbt.coupon.coupondata.entity.UploadedFileEntity;
+import tr.mbt.coupon.loggingaop.CouponLog;
 import tr.mbt.couponscheduler.repository.UploadedFileRepository;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class CouponScheduler {
     private final JobLauncher jobLauncher;
     private final Job couponImportJob;
 
+    @CouponLog(logArgs = true, logResult = true,logException = true)
     @Scheduled(fixedDelay = 60000)
     public void runJob() {
         System.out.println("Coupon writer job running...");

@@ -28,7 +28,6 @@ public class CouponUserEntity {
             sequenceName = "coupon_user_seq",
             allocationSize = 50
     )
-
     private Long id;
 
 

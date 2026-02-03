@@ -38,6 +38,19 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>tr.mbt.coupon</groupId>
+            <artifactId>logging-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>tr.mbt.coupon</groupId>
+            <artifactId>log-data</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

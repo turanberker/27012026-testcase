@@ -79,6 +79,11 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>tr.mbt.coupon</groupId>
+            <artifactId>logging-aop</artifactId>
+        </dependency>
     </dependencies>
 
 
