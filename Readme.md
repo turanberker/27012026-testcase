@@ -1,3 +1,140 @@
+<h1>Overview</h1>
+<p>
+The system is designed as three independent modules following scalability and separation of concerns principles:
+</p>
+<ul>
+    <li>CommandService</li>
+    <li>SchedulerService</li>
+    <li>ConsumerService</li>
+</ul>
+Each module can be deployed independently and has a clearly defined responsibility.
+<h1>CommandService</h1>
+CommandService is the public-facing layer of the application.
+<ul>
+<li>Runs on port 8500 by default</li>
+<li>Designed to run in multiple instances</li>
+</ul>
+<h2>Provided Feature</h2>
+<ul>
+<li>File Upload</li>
+
+<li>Coupon Request</li>
+<li>Coupon Usage</li>
+</ul>
+<h3>File Upload Flow</h3>
+1.The user sends a file upload request
+
+2.The file is stored in MinIO
+
+3.File metadata is saved to the database for further processing
+
+<h3> Coupon Request Flow</h3>
+
+<ul>
+<li>If the user specifies a coupon type, a coupon of that type is generated</li>
+<li>If no type is specified, a STANDARD coupon is generated
+
+<ul>
+<li>MegaDeal Coupon Handling
+<ul>
+<li>For each request, the system checks for a LOCK in Redis</li>
+<li>If no LOCK exists:
+<ul>
+<li>If the number of active TOKENs in Redis is less than 10:
+<ul>
+<li>A TOKEN with 1 second TTL is created in Redis</li>
+<li>
+An available coupon is returned to the user</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+If the number of active TOKENs reaches 10:
+<ul>
+<li>A LOCK with 10 seconds TTL is created in Redis</li>
+<li>Subsequent requests are throttled during this period</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<h2>Coupon Usage</h2>
+<ul>
+<li>If the user has an active and valid coupon:
+The discount rate
+
+The discount type
+</li>
+</ul>
+are returned to the user.
+
+<h1>SchedulerService</h1>
+SchedulerService is responsible for background processing and is designed to run as a single instance.
+
+<h2>Responsibilities</h2>
+<ul>
+<li>Processing uploaded files and persisting data into the coupon table</li>
+<li>Removing expired and inactive unused coupons</li>
+</ul>
+
+<h2>Technical Details</h2>
+Spring Batch is used for file processing operations
+<h1>ConsumerService</h1>
+ConsumerService acts as a Kafka consumer and persists incoming events into the database.
+
+<b>Kafka Topics</b>
+
+There are two Kafka topics in the system:
+
+1. **Coupon statistics:** Tracks coupon usage and assignment counts by coupon type
+
+2. **System logs:** Persists application-generated log events into the database
+
+
+<h2>Logging Mechanism</h2>
+A separate library named logging-aop was developed for centralized logging.
+
+Methods annotated with @CouponLog:
+<ul>
+<li>Are intercepted via Aspect</li>
+<li>Produce a log event</li>
+<li>Publish the event to Kafka</li>
+</ul>
+<h2>Security Configuration (CommandService)</h2>
+A dedicated security library was implemented for CommandService.
+**Features**
+
+1. Uses InMemoryUserDetailsService
+
+2. Supports Basic Authentication
+
+3. Fully configurable via application configuration
+_SECURITY_ENABLED=true | false_
+
+
+<h2>Behavior</h2>
+
+**SECURITY_ENABLED = true**
+
+1. Authentication is enabled
+
+2. userId is retrieved from SecurityContextHolder
+
+**SECURITY_ENABLED = false**
+
+1. Security is disabled
+
+2. userId must be provided explicitly in coupon usage and coupon request APIs
+
+
+
+
+
+
 
 
 <h3>Build</h3>
@@ -23,10 +160,6 @@ You can run docker compose -f app-docker-compose.yml up -d --build to build and 
 </tr>
 </tbody>
 </table>
-
-
-
-
 
 
 <h3>End Points</h3>
